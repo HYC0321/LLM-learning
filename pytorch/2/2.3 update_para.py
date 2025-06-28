@@ -6,7 +6,7 @@ print("\n--- 练习 3：手动参数更新 ---")
 x_data = torch.randn(10, 1) * 10
 true_w = torch.tensor(2.0)
 true_b = torch.tensor(1.0)
-y_true = true_w * x_data + true_b # + torch.randn(10, 1) * 0.5 # 增加一些噪声
+y_true = true_w * x_data + true_b + torch.randn(10, 1) * 0.5 # 增加一些噪声
 # print(f"x: {x_data}")
 print(f"真实的权重 true_w: {true_w.item():.4f}, 真实的偏置 true_b: {true_b.item():.4f}")
 
