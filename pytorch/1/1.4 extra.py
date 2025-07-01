@@ -1,6 +1,6 @@
 import torch
 
-print("--- Normalization Challenge ---")
+print("--- Normalization Challenge ---")# 标准化处理
 X = torch.randn(10, 10) # 10x10 随机张量
 print(f"Original X mean: {torch.mean(X):.4f}, std: {torch.std(X):.4f}")
 
@@ -15,7 +15,7 @@ print(f"Normalized X mean: {torch.mean(X_normalized):.4f}, std: {torch.std(X_nor
 
 
 
-print("\n--- Conditional Assignment Challenge ---")
+print("\n--- Conditional Assignment Challenge ---")# 条件赋值
 cond_tensor = torch.randint(0, 101, (5, 5)) # 0到100之间的随机整型张量
 print(f"Original tensor for conditional assignment:\n{cond_tensor}")
 
