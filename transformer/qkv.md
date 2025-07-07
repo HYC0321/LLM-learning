@@ -1,4 +1,3 @@
----
 好的，让我们来抽象出**注意力机制（Attention Mechanism）**的核心概念：**查询（Query）、键（Key）和值（Value）**。这三个概念是理解包括 Bahdanau 注意力在内的大多数注意力变体以及更复杂的 Transformer 模型中自注意力机制的关键。
 
 ### 注意力的核心：Query, Key, Value (QKV)
