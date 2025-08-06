@@ -1,3 +1,3 @@
 # LLM-learning
 
-practice for learning LLM
+Practice for learning LLM

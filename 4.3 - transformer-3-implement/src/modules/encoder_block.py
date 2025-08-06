@@ -1,8 +1,8 @@
 from turtle import forward
 import torch
 import torch.nn as nn
-from multi_head_attention import MultiHeadAttention
-from position_wise_feed_forward import PositionwiseFeedForward
+from .multi_head_attention import MultiHeadAttention
+from .position_wise_feed_forward import PositionwiseFeedForward
 
 
 class EncoderBlock(nn.Module):
@@ -17,13 +17,12 @@ class EncoderBlock(nn.Module):
             d_ff (int): 前馈网络中间层维度。
             dropout (float): Dropout 概率。
         """
-        super.__init__()
+        super().__init__()
         # 第一个子层: 多头自注意力
         self.self_attn = MultiHeadAttention(d_model=d_model, num_heads=num_heads, dropout=dropout)
         self.dropout1 = nn.Dropout(dropout)
         self.norm1 = nn.LayerNorm(d_model)
         
-
         # 第二个子层: 位置全连接前馈网络
         self.feed_forward = PositionwiseFeedForward(d_model=d_model, d_ff=d_ff, dropout=dropout)
         self.dropout2 = nn.Dropout(dropout)
@@ -55,7 +54,7 @@ class EncoderBlock(nn.Module):
 
         # 2. 残差连接
         x = x + self.dropout2(ff_output)
-        
+
         # 3. 层归一化
         output = self.norm2(src)
 
