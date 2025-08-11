@@ -105,8 +105,8 @@ train_dataloader = DataLoader(train_data, batch_size=config.BATCH_SIZE, collate_
 valid_dataloader = DataLoader(valid_data, batch_size=config.BATCH_SIZE, collate_fn=collate_fn)
 test_dataloader = DataLoader(test_data, batch_size=config.BATCH_SIZE, collate_fn=collate_fn)
 
-# print(f"训练集批次长度: {len(train_dataloader)}")
-# print(f"验证集批次长度: {len(valid_dataloader)}")
-# print(f"测试集批次: {len(train_dataloader)}")
+print(f"训练集批次长度: {len(train_dataloader)}")
+print(f"验证集批次长度: {len(valid_dataloader)}")
+print(f"测试集批次: {len(train_dataloader)}")
 
 print("\nDataLoader 准备就绪。")

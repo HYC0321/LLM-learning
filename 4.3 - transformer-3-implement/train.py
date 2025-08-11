@@ -6,7 +6,8 @@ from torch.utils.tensorboard import SummaryWriter
 # --- 1. 导入所有必要的模块和类 ---
 # 获取模型、数据管道、学习率调整器、训练引擎、评估引擎
 from src.modules.transformer import Transformer
-from data_loader import train_dataloader, valid_dataloader, test_dataloader, src_vocab, tgt_vocab
+# from data_loader import train_dataloader, valid_dataloader, src_vocab, tgt_vocab
+from data_loader_zh import train_dataloader, valid_dataloader, src_vocab, tgt_vocab
 from src.train.scheduler import CustomLRScheduler
 from src.train.engine import train_one_epoch, evaluate
 

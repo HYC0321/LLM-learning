@@ -2,7 +2,7 @@ import torch
 # --- 训练超参数 ---
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 BATCH_SIZE = 128
-NUM_EPOCHS = 80
+NUM_EPOCHS = 40
 # 学习率初始值设为0，因为我们会使用自定义调度器覆盖它
 LEARNING_RATE = 0 
 
