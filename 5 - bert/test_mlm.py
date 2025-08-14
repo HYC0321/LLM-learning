@@ -3,7 +3,7 @@ import torch
 from src.modules.bert_input import BERTInput
 from src.modules.bert_encoder import BERTEncoder
 from src.modules.mlm_head import MLMHead
-from data_loader import create_mlm_masks
+from src.modules.utils import create_mlm_masks
 
 
 
