@@ -2,3 +2,4 @@ __pycache__
 .venv
 log
 models
+saved_models_sst2
