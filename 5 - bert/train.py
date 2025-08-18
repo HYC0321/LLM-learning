@@ -44,9 +44,30 @@ def main():
     # 6. 训练与验证循环
     progress_bar = tqdm(range(num_training_steps))
 
+    with torch.no_grad():
+        for batch in eval_dataloader:
+            batch = {k: v.to(config.DEVICE) for k, v in batch.items()}
+            outputs = model(**batch)
+
+            # 获取预测
+            predictions = torch.argmax(outputs.logits, dim=-1)
+
+            # 更新准确率计算
+            accuracy_metric.update(predictions, batch['labels'])
+
+    eval_accuracy = accuracy_metric.compute()
+    current_lr = lr_scheduler.get_last_lr()[0]
+    print("-" * 50)
+    print(f"训练前 验证集准确率: {eval_accuracy.item():.4f}")
+    print(f"当前学习率: {current_lr:.2e}")
+    print("-" * 50)
+
     for epoch in range(config.NUM_EPOCHS):
         # --- 训练 ---
         model.train()
+        total_loss = 0
+        num_batches = 0
+
         for batch in train_dataloader:
             # 将批次数据移动到指定设备
             batch = {k: v.to(config.DEVICE) for k, v in batch.items()}
@@ -56,6 +77,8 @@ def main():
 
             # 获取损失
             loss = outputs.loss
+            total_loss += loss.item()
+            num_batches += 1
 
             # 反向传播
             loss.backward()
@@ -66,6 +89,10 @@ def main():
             optimizer.zero_grad()
 
             progress_bar.update(1)
+        
+        avg_train_loss = total_loss / num_batches
+        current_lr = lr_scheduler.get_last_lr()[0]
+
         
         # --- 验证 ---
         model.eval()
@@ -85,13 +112,16 @@ def main():
         eval_accuracy = accuracy_metric.compute()
 
         print("-" * 50)
-        print(f"Epoch {epoch + 1}/{config.NUM_EPOCHS} | 验证集准确率: {eval_accuracy.item():.4f}")
+        print(f"Epoch {epoch + 1}/{config.NUM_EPOCHS}")
+        print(f"训练损失: {avg_train_loss:.4f}")
+        print(f"验证准确率: {eval_accuracy.item():.4f}")
+        print(f"当前学习率: {current_lr:.2e}")
         print("-" * 50)
 
     print("微调训练完成！")
 
     # 保存最终的模型
-    output_dir = "saved_models_sst2"
+    output_dir = config.MODEL_DIR
     os.makedirs(output_dir, exist_ok=True)
     model.save_pretrained(output_dir)
     tokenizer.save_pretrained(output_dir)
@@ -99,3 +129,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
