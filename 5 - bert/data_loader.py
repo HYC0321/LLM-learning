@@ -25,6 +25,7 @@ def create_hf_dataloaders(model_checkpoint: str, batch_size: int):
     # --- 3. 编写并应用预处理函数 ---
     def preprocess_function(examples):
         """对输入的文本样本进行分词和数值化。"""
+        # tokenizer 会自动处理分词、ID转换、添加特殊符号 [CLS] 和 [SEP]。
         return tokenizer(examples['sentence'], truncation=True)
     
     print("正在对数据集进行预处理...")
